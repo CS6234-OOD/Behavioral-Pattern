@@ -1,12 +1,16 @@
 package behavioral.pattern;
 public interface CourseManagementSystemState
 {
-    void uploadAssignment(String courseNumber);
-    void viewCourseNotes(String courseNumber);
+    String uploadAssignment(String courseNumber);
+    String viewCourseNotes(String courseNumber);
 
-    void uploadCourseMaterial(String courseNumber);
-    void postCourseAnnouncement(String courseNumber);
+    String uploadCourseMaterial(String courseNumber);
+    String postCourseAnnouncement(String courseNumber);
 
-    void updateCourseInformation(String courseNumber);
-    void removeCourse(String courseNumber);
+    String updateCourseInformation(String courseNumber);
+    String removeCourse(String courseNumber);
+    
+    String closeCourseManagementSystem();
+    String openCourseManagementSystem();
+    String putCourseManageMentSystemIntoMaintenance();
 }

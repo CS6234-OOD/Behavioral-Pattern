@@ -8,33 +8,57 @@ public class UnderMaintenance implements CourseManagementSystemState
         courseManagementSystem = system;
     }
 
-    public void uploadAssignment(String courseNumber)
+    public String uploadAssignment(String courseNumber)
     {
         System.out.println("You can't upload an assignment to this course. The system is Under Maintenane!");
+        return "You can't upload an assignment to this course. The system is Under Maintenane!";
     }
 
-    public void viewCourseNotes(String courseNumber)
+    public String viewCourseNotes(String courseNumber)
     {
         System.out.println("You can't view course notes for this course. The system is Under Maintenane!");
+        return "You can't view course notes for this course. The system is Under Maintenane!";
     }
 
-    public void uploadCourseMaterial(String courseNumber)
+    public String uploadCourseMaterial(String courseNumber)
     {
         System.out.println("You can't upload course materials to this course. The system is Under Maintenane!");
+        return "You can't upload course materials to this course. The system is Under Maintenane!";
     }
 
-    public void postCourseAnnouncement(String courseNumber)
+    public String postCourseAnnouncement(String courseNumber)
     {
         System.out.println("You can't post an annoucement for this course. The system is Under Maintenane!");
+        return "You can't post an annoucement for this course. The system is Under Maintenane!";
     }
 
-    public void updateCourseInformation(String courseNumber)
+    public String updateCourseInformation(String courseNumber)
     {
         System.out.println("The course information for " + courseNumber + " has been updated.");
+        //return "The course information for " + courseNumber + " has been updated.";
+        return "The course information for " + courseNumber + " has been updated.";
     }
 
-    public void removeCourse(String courseNumber)
+    public String removeCourse(String courseNumber)
     {
         System.out.println("The course --- " + courseNumber + " has been removed from the system.");
+        //return "The course --- " + courseNumber + " has been removed from the system.";
+        return "The course --- " + courseNumber + " has been removed from the system.";
+    }
+    
+    public String closeCourseManagementSystem()
+    {
+        courseManagementSystem.setCourseManagementSystemState(courseManagementSystem.getClosedState());
+        return "The system is now CLOSED!";
+    }
+    public String openCourseManagementSystem()
+    {
+        courseManagementSystem.setCourseManagementSystemState(courseManagementSystem.getOpenState());
+        return "The system is now OPEN!";
+    }
+    public String putCourseManageMentSystemIntoMaintenance()
+    {
+        courseManagementSystem.setCourseManagementSystemState(courseManagementSystem.getMaintenanceState());
+        return "The system is already Under Maintenance!";
     }
 }
