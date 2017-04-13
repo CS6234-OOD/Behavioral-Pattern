@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package behavioral.pattern;
+package behavioral.pkg2;
 
 import javax.swing.DefaultListModel;
 
@@ -11,13 +11,13 @@ import javax.swing.DefaultListModel;
  *
  * @author richardhsu
  */
-public class CoursesList {
-    
+public class coursesList {
+
     public DefaultListModel CoursesList()
     {
         DefaultListModel courses = new DefaultListModel();
         
-        Course [] coursesList = {new Course(6234, "Object-Oriented-Design"), new Course(6112, "Algorithms"), new Course(6351, "AI"), new Course(1011, "Big Data"), new Course(1113, "Discrete Math"), new Course(6331, "Cryptography"), new Course(6221, "Software Paradigms")};
+        courses [] coursesList = {new courses(6234, "Object-Oriented-Design"), new courses(6112, "Algorithms"), new courses(6351, "AI"), new courses(1011, "Big Data"), new courses(1113, "Discrete Math"), new courses(6331, "Cryptography"), new courses(6221, "Software Paradigms")};
         
         for (int i = 0; i < coursesList.length; i++)
         {
@@ -25,5 +25,4 @@ public class CoursesList {
         }
         return courses;
     }
-    
 }

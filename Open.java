@@ -1,62 +1,62 @@
-package behavioral.pattern;
-public class Open implements CourseManagementSystemState
-{
-    CourseManagementSystem courseManagementSystem;
+package behavioral.pkg2;
 
-    public Open(CourseManagementSystem system)
-    {
-        courseManagementSystem = system;
-    }
+public class Open implements RegistrationState {
+	
+	private CourseRegistration courseRegistration;
+	
+	public Open(CourseRegistration newCourseRegistration){
+		courseRegistration = newCourseRegistration;
+	}
 
-    public String uploadAssignment(String courseNumber)
-    {
-        System.out.println("Student assignment for " + courseNumber + " has been uploaded.");
-        return "Student assignment for " + courseNumber + " has been uploaded.";
-    }
+	@Override
+	public RegistrationMessage register(Student newStudent) {
+                
+		if(!courseRegistration.isRegistered(newStudent)){
+			courseRegistration.addRegisteredStudent(newStudent);
+		
+			System.out.println("Student: " + newStudent.name + " has been registered");
+		
+			//Set State to close or waitlist if limit has been reached.
+			if(courseRegistration.getRegisterdStudents() == courseRegistration.getStudentLimit()){
+				if(courseRegistration.allowsWaitlist()){
+					courseRegistration.setRegistrationState(courseRegistration.getWaitlistState());
+					System.out.println("Registration State changed from Open to Waitlist");
+                                        RegistrationMessage registrationMessage = new RegistrationMessage("Student: " + newStudent.name + " has been registered", "Registration State changed from Open to Waitlist");
+                                        return registrationMessage;
+				}
+				else{
+					courseRegistration.setRegistrationState(courseRegistration.getClosedState());
+					System.out.println("Registration State changed from Open to Closed");
+                                        RegistrationMessage registrationMessage = new RegistrationMessage("Student: " + newStudent.name + " has been registered", "Registration State changed from Open to Closed");
+                                        return registrationMessage;
+				}
+			}
+                        RegistrationMessage registrationMessage = new RegistrationMessage("Student: " + newStudent.name + " has been registered", "Registration State is Open");
+                        return registrationMessage;
+		}
+		else{
+                        RegistrationMessage registrationMessage = new RegistrationMessage("Student: " + newStudent.name + " has already been registered", "Registration State is Open");
+			System.out.println("Student: " + newStudent.name + " has already been registered");
+                        return registrationMessage;
+		}
+	}
 
-    public String viewCourseNotes(String courseNumber)
-    {
-        System.out.println("The course notes for " + courseNumber + " is being displayed.");
-        return "The course notes for " + courseNumber + " is being displayed.";
-    }
+	@Override
+	public RegistrationMessage unregister(Student existingStudent) {
+		if(courseRegistration.isRegistered(existingStudent)){
+			courseRegistration.removeRegisteredStudent(existingStudent);
+			System.out.println("Student: " + existingStudent.name + " has been unregistered");
+                        RegistrationMessage registrationMessage = new RegistrationMessage("Student: " + existingStudent.name + " has been unregistered", "Registration State is Open");
+                        //return "Student: " + existingStudent.name + " has been unregistered";
+                        return registrationMessage;
+                        
+		}else{
+			System.out.println("Student: " + existingStudent.name + " has not registered for the course.");
+                        //return "Student: " + existingStudent.name + " has not registered for the course.";
+                        RegistrationMessage registrationMessage = new RegistrationMessage("Student: " + existingStudent.name + " has not registered for the course.", "Registration State is Open");
+                        return registrationMessage;
+		}
+		
+	}
 
-    public String uploadCourseMaterial(String courseNumber)
-    {
-        System.out.println("The course notes for " + courseNumber + " has been uploaded.");
-        return "The course notes for " + courseNumber + " has been uploaded.";
-    }
-
-    public String postCourseAnnouncement(String courseNumber)
-    {
-        System.out.println("An announcement for " + courseNumber + " has been posted.");
-        return "An announcement for " + courseNumber + " has been posted.";
-    }
-
-    public String updateCourseInformation(String courseNumber)
-    {
-        System.out.println("You can't update the course. The system is OPEN!");
-        return "You can't update the course. The system is OPEN!";
-    }
-
-    public String removeCourse(String courseNumber)
-    {
-        System.out.println("You can't remove the course. The system is OPEN!");
-        return "You can't remove the course. The system is OPEN!";
-    }
-    
-    public String closeCourseManagementSystem()
-    {
-        courseManagementSystem.setCourseManagementSystemState(courseManagementSystem.getClosedState());
-        return "The system is now CLOSED!";
-    }
-    public String openCourseManagementSystem()
-    {
-        courseManagementSystem.setCourseManagementSystemState(courseManagementSystem.getOpenState());
-        return "The system is already OPEN!";
-    }
-    public String putCourseManageMentSystemIntoMaintenance()
-    {
-        courseManagementSystem.setCourseManagementSystemState(courseManagementSystem.getMaintenanceState());
-        return "The System is Under Maintenance!";
-    }
 }
